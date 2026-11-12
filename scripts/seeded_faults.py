@@ -54,10 +54,10 @@ FAULTS = {
         "let effective_ime = self.ime;",
         "let effective_ime = self.ime || self.ei_pending;",
     ),
-    "daa-adjusted-nibble": (
+    "daa-carry-threshold": (
         "alu.rs",
-        "if self.f & FLAG_H != 0 || self.a & 0x0F > 0x09 {",
-        "if self.f & FLAG_H != 0 || a & 0x0F > 0x09 {",
+        "if self.f & FLAG_C != 0 || a > 0x99 {",
+        "if self.f & FLAG_C != 0 || a >= 0x99 {",
     ),
     "ie-written-after-callback": (
         "core.rs",
