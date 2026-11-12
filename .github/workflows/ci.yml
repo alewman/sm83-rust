@@ -1,0 +1,38 @@
+name: CI
+
+# Kept small (private repository: minutes cost money): main and pull requests,
+# superseded runs cancelled, one job. The reference (sm83-python) is private, so
+# the lockstep rungs (1, 4) and the MAME replay (5) run by hand (README); CI runs
+# the build, the transcribed special-state tests, a SingleStepTests sample
+# (rung 2) and the test ROMs (rung 3), all from public sources.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: fmt, clippy, test, rungs 2 (sample) and 3
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --check
+      - run: cargo clippy --release --all-targets -- -D warnings
+      - run: cargo test --release
+      - name: references (SingleStepTests, blargg, Mooneye) at the reference's pins
+        run: scripts/fetch_references.sh
+      - name: "rung 2: SingleStepTests sm83, 100 cases a file"
+        run: LIMIT=100 scripts/rung2.sh
+      - name: "rung 3: blargg cpu_instrs and the Mooneye CPU ROMs"
+        run: scripts/rung3.sh
