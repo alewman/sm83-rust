@@ -1,0 +1,16 @@
+[package]
+name = "sm83"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "A Rust Sharp SM83 (Game Boy CPU) core transcribed from, and proven equivalent to, sm83-python"
+license = "MIT"
+repository = "https://github.com/alewman/sm83-rust"
+publish = false
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+debug = 1
