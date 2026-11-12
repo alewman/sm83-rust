@@ -1,10 +1,10 @@
 name: CI
 
-# Kept small (private repository: minutes cost money): main and pull requests,
-# superseded runs cancelled, one job. The reference (sm83-python) is private, so
-# the lockstep rungs (1, 4) and the MAME replay (5) run by hand (README); CI runs
-# the build, the transcribed special-state tests, a SingleStepTests sample
-# (rung 2) and the test ROMs (rung 3), all from public sources.
+# Kept small: main and pull requests, superseded runs cancelled, one job. The
+# lockstep rungs (1, 4) and the MAME replay (5) need the reference (sm83-python)
+# and run by hand (README); CI runs the build, the transcribed special-state
+# tests, a SingleStepTests sample (rung 2) and the test ROMs (rung 3), all from
+# public sources.
 on:
   push:
     branches: [main]

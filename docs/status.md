@@ -1,8 +1,8 @@
 # Status (2026-11-12)
 
-The crate is complete against its brief (docs/handoff-brief.md): every module of
-sm83-python `95f2b8b` transcribed, all five rungs pass, seeded faults all caught.
-Run on Linux x86_64, rustc 1.93.1, reference on PyPy 7.3.20 (Python 3.11).
+Every module of sm83-python `95f2b8b` is transcribed, all five rungs pass and every seeded
+fault is caught. The ladder was run at `105b8c1` on Linux x86_64, rustc 1.93.1, the reference
+on PyPy 7.3.20 (Python 3.11).
 
 ## What passed
 
@@ -21,17 +21,21 @@ their own, which matters because CI cannot run the lockstep rungs.
 
 No divergence from sm83-python was found; nothing suggests the reference is wrong.
 
+Re-checked at `105b8c1` (2026-11-12, docs-only changes since): `cargo test --release` 17 + 1
+pass, `cargo fmt --check` and `cargo clippy --release --all-targets -- -D warnings` (clippy
+0.1.99) clean, rung 3 22 of 22, rung 2 with `LIMIT=100` 49,800 of 49,800.
+
 ## Setup, exact commands
 
 ```sh
-PYTHON=~/.local/opt/pypy/bin/pypy3 scripts/fetch_sm83python.sh "" /data/emu/sm83-python
+PYTHON=pypy3 scripts/fetch_sm83python.sh "" ../sm83-python   # or the GitHub default
 scripts/fetch_references.sh
 JOBS=10 scripts/rung1.sh
 scripts/rung2.sh
 scripts/rung3.sh
 JOBS=10 scripts/rung4.sh
 # rung 5 traces, recorded with the reference's own recorder (MAME 0.285 at /usr/games/mame):
-#   python3 -I /data/emu/sm83-python/scripts/mame_trace.py gameboy ROM --io --seconds 20 \
+#   python3 -I ../sm83-python/scripts/mame_trace.py gameboy ROM --io --seconds 20 \
 #       --out external/mame_traces/NAME
 scripts/rung5.sh
 python3 scripts/seeded_faults.py
@@ -39,8 +43,6 @@ python3 scripts/seeded_faults.py
 
 ## Open
 
-- Local `cargo clippy` is a 2024 snap build that refuses the crate (`requires rustc 1.85`);
-  clippy runs in CI only.
 - CI runs fmt, clippy, tests, a rung-2 sample and rung 3. Rungs 1, 4 and 5 need the
-  private reference (and MAME, and commercial ROMs for rung 5) and run by hand.
+  reference (and MAME, and commercial ROMs for rung 5) and run by hand.
 - The MAME traces and the commercial ROMs are local only (external/, not committed).

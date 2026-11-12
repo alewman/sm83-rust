@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # The reference, sm83-python at the pinned commit, into external/ with a venv.
 # Usage: scripts/fetch_sm83python.sh [DEST] [SOURCE]
-#   SOURCE: a git URL or a local clone (default: GitHub; the repository is private, so
-#   GitHub needs credentials). PYTHON picks the interpreter for the venv (PyPy runs the
+#   SOURCE: a git URL or a local clone (default: GitHub; while sm83-python is private,
+#   that needs credentials). PYTHON picks the interpreter for the venv (PyPy runs the
 #   long rungs several times faster).
 set -euo pipefail
 COMMIT=95f2b8b39c1a1b3890d3b47b39cb1f698e948eca

@@ -6,6 +6,7 @@ rust-version = "1.85"
 description = "A Rust Sharp SM83 (Game Boy CPU) core transcribed from, and proven equivalent to, sm83-python"
 license = "MIT"
 repository = "https://github.com/alewman/sm83-rust"
+readme = "README.md"
 publish = false
 
 [dependencies]

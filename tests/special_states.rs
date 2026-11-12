@@ -1,6 +1,6 @@
 //! The reference's `tests/test_special_states.py`, transcribed: dispatch, HALT, EI/DI,
-//! STOP, the holes, $FFFF. These run in CI (rung 4 compares the same scenarios with the
-//! reference, which CI cannot reach: it is private).
+//! STOP, the holes, $FFFF. These run in CI; rung 4 compares the same scenarios with the
+//! reference itself, by hand.
 
 use sm83::{Bus, CpuState, Sm83, StopAction, StopResult};
 
